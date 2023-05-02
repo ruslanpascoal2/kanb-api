@@ -57,4 +57,12 @@ export class KanbansService {
       throw e;
     }
   }
+
+  async findKanbansOfUser(id: string){
+    await this.prisma.kanban.findUnique({
+      where: {
+        
+      }
+    })
+  }
 }

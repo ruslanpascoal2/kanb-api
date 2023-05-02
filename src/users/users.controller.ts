@@ -3,11 +3,12 @@ import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { ApiTags } from '@nestjs/swagger';
+import { KanbansService } from 'src/kanbans/kanbans.service';
 
 @ApiTags('users')
 @Controller('users')
 export class UsersController {
-  constructor(private readonly usersService: UsersService) {}
+  constructor(private readonly usersService: UsersService, private readonly kanbanService: KanbansService) {}
 
   @Post()
   create(@Body() createUserDto: CreateUserDto) {
@@ -32,5 +33,10 @@ export class UsersController {
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.usersService.remove(id);
+  }
+
+  @Get(':id')
+  findKanbansOfUser(@Param('id') id: string){
+    return this.kanbanService.findKanbansOfUser(id);
   }
 }
